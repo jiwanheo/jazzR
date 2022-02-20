@@ -1,0 +1,13 @@
+Package: jazzR
+Title: Generate Clinical Trials Tables and Visualizations
+Version: 0.0.0.9000
+Authors@R: person('Jiwan', 'Heo', email = 'jiwanheo123@gmail.com', role = c('cre', 'aut'))
+Description: This Package analyzes clinical trials data, and generates various outputs needed to document clinical trials. (Summary of patient demographics, Efficacy results table, Co-primary efficacy endpoints visualization).
+License: MIT + file LICENSE
+Imports: 
+    config (>= 0.3.1),
+    golem (>= 0.3.1.9005),
+    shiny (>= 1.7.1)
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.1
