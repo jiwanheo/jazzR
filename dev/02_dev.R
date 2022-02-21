@@ -39,16 +39,17 @@ golem::add_sass_file("custom")
 
 ## Add internal datasets ----
 ## If you have data in your package
-usethis::use_data_raw(name = "my_dataset", open = FALSE)
+usethis::use_data_raw(name = "jazz_db", open = FALSE)
 
 ## Tests ----
 ## Add one line by test you want to create
-usethis::use_test("app")
+usethis::use_test("data_validation")
 
 # Documentation
 
 ## Vignette ----
 usethis::use_vignette("design-spec")
+usethis::use_vignette("data-generation")
 devtools::build_vignettes()
 
 ## Code Coverage----
