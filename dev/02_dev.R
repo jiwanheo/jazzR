@@ -19,13 +19,16 @@ usethis::use_package("thinkr")
 
 ## Add modules ----
 ## Create a module infrastructure in R/
-golem::add_module(name = "name_of_module1", with_test = TRUE) # Name of the module
-golem::add_module(name = "name_of_module2", with_test = TRUE) # Name of the module
+golem::add_module(name = "general_info") # Name of the module
+golem::add_module(name = "side_bar") # Name of the module
+golem::add_module(name = "content1_study_design") # Name of the module
+golem::add_module(name = "content2_efficacy_table") # Name of the module
+golem::add_module(name = "content3_efficacy_viz") # Name of the module
 
 ## Add helper functions ----
 ## Creates fct_* and utils_*
-golem::add_fct("helpers", with_test = TRUE)
-golem::add_utils("helpers", with_test = TRUE)
+golem::add_fct("R6", with_test = FALSE)
+golem::add_utils("trigger", with_test = FALSE)
 
 ## External resources
 ## Creates .js and .css files at inst/app/www
@@ -45,7 +48,7 @@ usethis::use_test("app")
 # Documentation
 
 ## Vignette ----
-usethis::use_vignette("jazzR")
+usethis::use_vignette("design-spec")
 devtools::build_vignettes()
 
 ## Code Coverage----

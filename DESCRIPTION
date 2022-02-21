@@ -6,8 +6,17 @@ Description: This Package analyzes clinical trials data, and generates various o
 License: MIT + file LICENSE
 Imports: 
     config (>= 0.3.1),
+    ggplot2,
     golem (>= 0.3.1.9005),
-    shiny (>= 1.7.1)
+    magrittr,
+    R6,
+    shinipsum,
+    shiny (>= 1.7.1),
+    shinydashboard
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2.9000
+Suggests: 
+    rmarkdown,
+    knitr
+VignetteBuilder: knitr

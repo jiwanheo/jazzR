@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css?family=Oswald');
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+
+body {
+  font-family: 'Raleway';
+}
+
+h1, h2, .main-header .logo {
+  font-family: 'Oswald';
+}
+
+/*This is a get around, because i don't know how to use javascript to remove class*/
+
+.skin-blue .main-header .navbar{
+  background-color: #880063
+}
+
+.skin-blue .main-header .logo,
+.skin-blue .main-header .logo:hover{
+    background-color: #f9c921;
+    color: #000000;
+    border-bottom: 0 solid transparent;
+}
+
+.skin-blue .main-header .navbar .sidebar-toggle,
+.skin-blue .main-header .navbar .sidebar-toggle:hover {
+    color: #000000;
+    background-color: #880063;
+}
+
+.bottom-image {
+    position: absolute;
+    bottom: 0;
+    padding: 1.5rem;
+}
+
+.skin-blue .left-side, .skin-blue .main-sidebar, .skin-blue .wrapper {
+    background-color: #e7e7e7;
+}
+
+.content-wrapper, .right-side {
+    min-height: 100%;
+    background-color: #ffffff;
+    z-index: 800;
+}
+
+.sidebar {
+    color: #000000;
+}
+
+.btn-default {
+    background-color: #ffffff;
+    color: #444;
+    border-color: #ddd;
+    width: 200px;
+}
