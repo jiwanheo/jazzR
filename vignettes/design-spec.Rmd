@@ -1,0 +1,94 @@
+---
+title: "design-spec"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{design-spec}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Overall Goal & Summary
+
+**Make it easy to generate tables/figures required to prepare clinical trials submission documents** 
+
+Requirements per: https://pp.jazzpharma.com/pi/sunosi.ca.PM-en.pdf
+
+- Study design (Demographics summary, ...)
+- Efficacy results summary table
+- Co-primary efficacy endpoints visualisation.
+
+## General Observation
+
+- This app will likely be used at the end of clinical trials for reporting purposes.
+
+- Be able to go through different drugs, by different trials.
+
+- Results should be view-able, and exportable as pdf.
+
+- Need to mock a data pipeline. Will do this with a SQLite database with few tables.
+
+## User experience considerations
+
+- Make sure the user doesn't have to wait to output, open the pdf, to know what they're getting out of the app.
+- PDF outputs!
+- Company colours!
+
+## Technical points
+
+- Without much knowledge right now, the app itself is very simple.
+- Let's make sure to have adequate relationships between the db tables. (There will likely be an existing rigid data structure. I'm going to try my best to mimic some I learned from Coursera.)  
+
+## Concept Map
+
+[Figma](https://www.figma.com/file/Hrx2iUgZalScAjykfQgqT8/jazzR?node-id=4%3A58)
+
+## Asking Questions
+
+Who are the end users of your app?
+
+- Scientists & statisticians that carry out clinical trials.
+- Project managers that review/sign off on publications.
+
+Are they tech-literate?
+
+- Yes! The language of the app shouldn't be dumbed down.
+- Two audience groups that work with each other: scientists, and statisticians.
+  - Accuracy of analyses comes first. Clear documentation/tests, when doing anything statistics-related.
+  - They will direct their audience to the outputs of the app to the outputs of this app. 
+  
+
+In which context will they be using your app?
+
+- Mostly after the trials are finished, or close to finished.
+- While they prepare regulatory reporting for a certain drug/trial.
+- When scientists present findings to stakeholders.
+
+On what machines?
+
+- Ideally Laptops/desktop computers. Most likely won't be used on phones. Not sure about the operating system.
+
+What browser version will they be using?
+
+- Given the audience we aim, they will be using recent versions of modern browsers. 
+
+Will they be using the app in their office, on their phone while driving a tractor, in a plant, or while wearing lab coats?
+
+- Most likely in the office, potentially in a lab.
+
+## Personas
+
+### Jane Smith: Lead Scientist at Jazz Pharma, Sunosi.
+
+Jane Smith is a lead scientist at Jazz Pharma, working on Sunosi, a drug to treat Narcolepsy, in its final clinical trial phase. Jane's team has been conducting various studies over the past 2 years to study the effects and safety of the drug. Recently, a 12-week study (14-002) has concluded, and Jane wants to analyze the results, and present the findings to stakeholders. To do so, Jane will have to prepare a quick presentation to her boss, as well as a regulatory document, that must abide by **standardized table format and visualizations rules**.
+
+### Thomas Lee: Biostatistician Intern at Jazz Pharma, Rylaze.
+
+Thomas Lee is an intern from a local university who is a part of the Rylaze team for this summer. Already an FDA approved drug, Rylaze treats acute lymphoblastic leukemia in pediatric and adult patients. Thomas is tasked with reviewing and improving statistical methods of previous clinical studies, to innovate the statistical methods of future projects. Thomas discovers the jazzR Shiny app through an internal slack channel. After skimming through the study results, Thomas is confident he can improve the test results, by replacing the Bonferroni correction with Tukey. 
+
