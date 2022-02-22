@@ -11,6 +11,7 @@ Imports:
     DT,
     ggplot2,
     golem (>= 0.3.1.9005),
+    gt,
     magrittr,
     R6,
     RSQLite,
