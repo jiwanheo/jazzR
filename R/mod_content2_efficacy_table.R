@@ -10,9 +10,9 @@
 mod_content2_efficacy_table_ui <- function(id){
   ns <- NS(id)
   tagList(
-    tags$h2("2. Efficacy results at week 12"),
+    tags$h2("2. Efficacy results at Week 12"),
 
-    tableOutput(ns("table"))
+    gt_output(ns("table"))
 
   )
 }
@@ -26,9 +26,24 @@ mod_content2_efficacy_table_server <- function(id, r6){
 
     observeEvent(watch("r6_update"), {
       req(!is.null(r6$drug_name))
+      tbl <- generate_efficacy_table(r6$trial_name)
 
-      output$table <- renderTable({
-        random_table(ncol = 5, nrow = 3)
+      output$table <- render_gt({
+        tbl %>%
+          gt() %>%
+          cols_width(
+            measure ~ px(100),
+            drug_name ~ px(200)
+          ) %>%
+          fmt_markdown(columns = c("drug_name", "baseline_value",
+                                   "diff_baseline", "diff_placebo")) %>%
+          cols_label(
+            measure = "",
+            drug_name = "Treatment Groups",
+            baseline_value = "Mean Baseline Value(SD)",
+            diff_baseline = "Mean Change from Baseline",
+            diff_placebo = "Difference from Placebo"
+          )
       })
     })
 

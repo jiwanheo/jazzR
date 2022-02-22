@@ -28,6 +28,8 @@ golem::add_module(name = "content3_efficacy_viz") # Name of the module
 ## Add helper functions ----
 ## Creates fct_* and utils_*
 golem::add_fct("R6", with_test = FALSE)
+golem::add_fct("content1_study_design", with_test = FALSE)
+golem::add_fct("content2_efficacy_table", with_test = FALSE)
 golem::add_utils("trigger", with_test = FALSE)
 
 ## External resources
@@ -44,12 +46,15 @@ usethis::use_data_raw(name = "jazz_db", open = FALSE)
 ## Tests ----
 ## Add one line by test you want to create
 usethis::use_test("data_validation")
+usethis::use_test("content1_study_design")
+usethis::use_test("content2_efficacy_table")
 
 # Documentation
 
 ## Vignette ----
 usethis::use_vignette("design-spec")
 usethis::use_vignette("data-generation")
+usethis::use_vignette("analysis")
 devtools::build_vignettes()
 
 ## Code Coverage----

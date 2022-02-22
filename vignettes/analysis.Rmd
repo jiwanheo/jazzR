@@ -120,4 +120,100 @@ gt(
   fmt_markdown(columns = c("drug_name", "sex"))
 ```
 
+## 2. Efficacy results at week 12
+
+I need the count summary again. I can honestly use the function from content1 again
+
+```{r}
+treatment_group <- get_study_subjects("14-002", system.file("extdata/jazz.sqlite", package = "jazzR"))
+```
+
+### MWT mean sleep latency
+
+Mean of means of sleep latency by person at week 0
+
+```{r}
+msl_by_person_baseline <- 
+  dbGetQuery(con, "SELECT trial_subject_id, AVG(sleep_latency) mean_sleep_latency
+                   FROM mwt_table
+                   WHERE week = 0
+                   GROUP BY trial_subject_id;")
+
+subject_drug_id <- dbGetQuery(con, "SELECT distinct t.trial_subject_id, d.drug_name 
+                                    FROM trial_subject_table t
+                                    
+                                    INNER JOIN drug_table d 
+                                    ON t.drug_id = d.drug_id
+                                    WHERE t.study_id = '14-002';")
+
+msl_by_drug_baseline <- subject_drug_id %>% 
+  inner_join(msl_by_person_baseline, "trial_subject_id")
+
+msl_by_drug_baseline_facts <- msl_by_drug_baseline %>% 
+  group_by(drug_name) %>% 
+  summarize(msl = round(mean(mean_sleep_latency), digits = 2),
+            sd = round(sd(mean_sleep_latency), digits = 2),
+            .groups = "drop")
+
+msl_by_drug_baseline_output <- msl_by_drug_baseline_facts %>% 
+  unite("mean_baseline_value", c(msl, sd), sep = " (") %>% 
+  mutate(mean_baseline_value = paste0(mean_baseline_value, ")")) %>% 
+  summarize(mean_baseline_value = paste0(mean_baseline_value, collapse = "<br>"))
+```
+
+Mean Change from Baseline (Not going to do ANOVA) is difference between baseline and week 12
+
+```{r}
+msl_by_person_end <- 
+  dbGetQuery(con, "SELECT trial_subject_id, AVG(sleep_latency) mean_sleep_latency
+                   FROM mwt_table
+                   WHERE week = 12
+                   GROUP BY trial_subject_id;")
+
+subject_drug_id <- dbGetQuery(con, "SELECT distinct t.trial_subject_id, d.drug_name 
+                                    FROM trial_subject_table t
+                                    
+                                    INNER JOIN drug_table d 
+                                    ON t.drug_id = d.drug_id
+                                    WHERE t.study_id = '14-002';")
+
+msl_by_drug_end <- subject_drug_id %>% 
+  inner_join(msl_by_person_end, "trial_subject_id")
+
+msl_by_drug_end_facts <- msl_by_drug_end %>% 
+  group_by(drug_name) %>% 
+  summarize(msl_end = round(mean(mean_sleep_latency), digits = 2),
+            sd_end = round(sd(mean_sleep_latency), digits = 2),
+            .groups = "drop")
+
+msl_by_drug_end_output <- msl_by_drug_end_facts %>% 
+  unite("mean_baseline_value", c(msl_end, sd_end), sep = " (") %>% 
+  mutate(mean_baseline_value = paste0(mean_baseline_value, ")")) %>% 
+  summarize(mean_baseline_value = paste0(mean_baseline_value, collapse = "<br>"))
+
+#### Comparing baseline to end (just going to do absolute msl change)
+
+change_baseline_tbl <- msl_by_drug_baseline_facts %>% 
+  inner_join(msl_by_drug_end_facts, "drug_name") %>% 
+  mutate(change_f_baseline = round(msl_end - msl, digits = 2)) %>% 
+  select(drug_name, change_f_baseline)
+
+#### Difference from placebo
+placebo <- change_baseline_tbl[change_baseline_tbl$drug_name == "Placebo", "change_f_baseline"][[1]]
+
+change_baseline_placebo_output <- change_baseline_tbl %>% 
+  mutate(diff_placebo = change_f_baseline - placebo) %>% 
+  summarize(change_f_baseline = paste0(change_f_baseline, collapse = "<br>"),
+            diff_placebo = paste0(diff_placebo, collapse = "<br>"))
+
+```
+
+```{r}
+cbind(
+  tibble(measure = "MWT mean sleep latency"),
+  treatment_group,
+  msl_by_drug_baseline_output,
+  change_baseline_placebo_output
+)
+```
 
