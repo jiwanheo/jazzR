@@ -11,15 +11,19 @@
 mod_content3_efficacy_viz_ui <- function(id){
   ns <- NS(id)
   tagList(
-    tags$h2("3. Co-Primary Efficacy endpoints"),
+    tags$h2("3. Co-Primary Efficacy Endpoints"),
 
-    plotOutput(ns("plot"))
+    div(class = "flex",
+      plotOutput(ns("plot1")),
+      plotOutput(ns("plot2"))
+    )
   )
 }
 
 #' content3_efficacy_viz Server Functions
 #'
 #' @noRd
+#' @import ggplot2
 mod_content3_efficacy_viz_server <- function(id, r6){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
@@ -27,9 +31,14 @@ mod_content3_efficacy_viz_server <- function(id, r6){
     observeEvent(watch("r6_update"), {
       req(!is.null(r6$drug_name))
 
-      output$plot <- renderPlot({
-        random_ggplot(type = "line")
+      output$plot1 <- renderPlot({
+        ess_viz(r6$trial_name)
       })
+
+      output$plot2 <- renderPlot({
+        mwt_viz(r6$trial_name)
+      })
+
     })
   })
 }

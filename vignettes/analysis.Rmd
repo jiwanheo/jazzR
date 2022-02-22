@@ -217,3 +217,34 @@ cbind(
 )
 ```
 
+## 3. Efficacy Visualization
+
+```{r}
+ess <- dbGetQuery(con, "SELECT * FROM ess_table;")
+
+subject_drug <- dbGetQuery(con,
+  "SELECT distinct t.trial_subject_id, d.drug_name
+   FROM trial_subject_table t
+
+   INNER JOIN drug_table d
+   ON t.drug_id = d.drug_id
+   WHERE t.study_id = '14-002';"
+)
+
+dbDisconnect(con)
+
+tbl <- subject_drug %>%
+  inner_join(ess, "trial_subject_id") %>%
+  group_by(drug_name, week) %>%
+  summarize(m_ess = round(mean(ess_score), digits = 2),
+            sd = round(sd(ess_score), digits = 2),
+            .groups = "drop") %>% 
+  mutate(lo = m_ess - sd,
+         hi = m_ess + sd)
+
+# library(ggplot2)
+# ggplot() +
+#   geom_point(data = tbl, aes(x = week, y = m_ess, color = drug_name))
+#   geom_error(data = tbl, aes(x = week, ymin = lo, ymax = hi))
+```
+

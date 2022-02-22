@@ -54,3 +54,8 @@ h1, h2, .main-header .logo {
     border-color: #ddd;
     width: 200px;
 }
+
+.flex {
+  display: flex;
+  flex-direction: row;
+}

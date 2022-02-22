@@ -30,6 +30,7 @@ golem::add_module(name = "content3_efficacy_viz") # Name of the module
 golem::add_fct("R6", with_test = FALSE)
 golem::add_fct("content1_study_design", with_test = FALSE)
 golem::add_fct("content2_efficacy_table", with_test = FALSE)
+golem::add_fct("content3_efficacy_viz", with_test = FALSE)
 golem::add_utils("trigger", with_test = FALSE)
 
 ## External resources
