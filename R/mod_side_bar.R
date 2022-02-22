@@ -3,6 +3,7 @@
 #' @description A shiny Module.
 #'
 #' @param id,input,output,session Internal parameters for {shiny}.
+#' @noRd
 #'
 mod_side_bar_ui <- function(id){
   ns <- NS(id)
@@ -26,6 +27,7 @@ mod_side_bar_server <- function(id, r6){
     ns <- session$ns
 
     observeEvent(input$generate_outputs, {
+
       r6$drug_name <- input$choose_drug
       r6$trial_name <- input$choose_trial
 
