@@ -6,8 +6,6 @@
 #'
 #' @noRd
 #'
-#' @importFrom shinipsum random_ggplot
-#' @import ggplot2
 mod_content3_efficacy_viz_ui <- function(id){
   ns <- NS(id)
   tagList(

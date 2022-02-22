@@ -6,7 +6,6 @@
 #'
 #' @noRd
 #'
-#' @importFrom shinipsum random_table
 mod_content2_efficacy_table_ui <- function(id){
   ns <- NS(id)
   tagList(

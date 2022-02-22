@@ -9,6 +9,7 @@
 #' @param study_id study_id to look up on study_table
 #' @param db_path sqlite path
 #'
+#' @importFrom stats sd
 get_baseline_mwt <- function(study_id, db_path) {
 
   con <- dbConnect(SQLite(), db_path)

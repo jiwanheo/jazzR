@@ -15,7 +15,6 @@ Imports:
     magrittr,
     R6,
     RSQLite,
-    shinipsum,
     shiny (>= 1.7.1),
     shinydashboard,
     tibble,

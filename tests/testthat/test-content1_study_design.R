@@ -1,6 +1,6 @@
 test_that("get_study_subjects works", {
 
-  expected_text <- "SUNOSI 75mg n=60<br>SUNOSI 150mg n=60<br>SUNOSI 300mg n=60<br>Placebo n=60"
+  expected_text <- "Placebo n=60<br>SUNOSI 150mg n=60<br>SUNOSI 300mg n=60<br>SUNOSI 75mg n=60"
   output_text <- get_study_subjects("14-002", system.file("extdata/jazz.sqlite", package = "jazzR"))$drug_name[[1]]
 
   expect_equal(expected_text, output_text)

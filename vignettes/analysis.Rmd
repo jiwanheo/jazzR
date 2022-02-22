@@ -21,7 +21,7 @@ library(dplyr)
 library(tidyr)
 library(gt)
 
-con <- dbConnect(SQLite(), "inst/extdata/jazz.sqlite")
+con <- dbConnect(SQLite(), system.file("extdata/jazz.sqlite", package = "jazzR"))
 ```
 
 ## 1. Study Design & Demographics
@@ -125,7 +125,7 @@ gt(
 I need the count summary again. I can honestly use the function from content1 again
 
 ```{r}
-treatment_group <- get_study_subjects("14-002", system.file("extdata/jazz.sqlite", package = "jazzR"))
+treatment_group <- study_subject_tbl
 ```
 
 ### MWT mean sleep latency
