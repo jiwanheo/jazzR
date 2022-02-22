@@ -13,6 +13,7 @@ Imports:
     golem (>= 0.3.1.9005),
     gt,
     magrittr,
+    pkgload,
     R6,
     RSQLite,
     shiny (>= 1.7.1),
