@@ -8,8 +8,8 @@
 mod_side_bar_ui <- function(id){
   ns <- NS(id)
   tagList(
-    selectInput(ns("choose_drug"), "Choose drug", c("SUNOSI", "Other drug")),
-    selectInput(ns("choose_trial"), "Choose trial", c("14-002", "Other trial")),
+    selectInput(ns("choose_drug"), "Choose drug", c("SUNOSI")),
+    selectInput(ns("choose_trial"), "Choose trial", c("14-002")),
     actionButton(ns("generate_outputs"), "Generate outputs!"),
     actionButton(ns("export_outputs"), "Export outputs!"),
     div(
@@ -22,6 +22,7 @@ mod_side_bar_ui <- function(id){
 #' side_bar Server Functions
 #'
 #' @noRd
+#' @importFrom shinyscreenshot screenshot
 mod_side_bar_server <- function(id, r6){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
@@ -32,6 +33,10 @@ mod_side_bar_server <- function(id, r6){
       r6$trial_name <- input$choose_trial
 
       trigger("r6_update")
+    })
+
+    observeEvent(input$export_outputs, {
+      screenshot()
     })
 
   })

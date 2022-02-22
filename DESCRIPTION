@@ -17,6 +17,7 @@ Imports:
     RSQLite,
     shiny (>= 1.7.1),
     shinydashboard,
+    shinyscreenshot,
     tibble,
     tidyr
 Encoding: UTF-8
